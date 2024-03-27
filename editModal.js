@@ -72,12 +72,10 @@ function saveChanges(productId) {
         .then(data => {
             console.log('Modifiche salvate con successo:', data);
             var tableRow = document.getElementById('productRow_' + productId);
-            console.log(tableRow.cells[1])
-            tableRow.cells[1].innerText = data.data.attributes.marca;
-            tableRow.cells[2].innerText = data.data.attributes.nome;
-            tableRow.cells[3].innerText = data.data.attributes.prezzo;
-            console.log(tableRow.cells[1])
-            closeModal(); // Chiudi il modale dopo aver salvato le modifiche
+            tableRow.cells[1].innerText = editedMarca;
+            tableRow.cells[2].innerText = editedNome;
+            tableRow.cells[3].innerText = editedPrezzo;
+            closeModal(); 
         })
         .catch(error => {
             console.error('Errore:', error);
