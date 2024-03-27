@@ -25,6 +25,7 @@ function displayProducts(products) {
 
     products.forEach(product => {
         const productRow = document.createElement('tr');
+        productRow.id = 'productRow_' + product.id;
         
         productRow.innerHTML = `
             <td>${product.id}</td>
@@ -33,7 +34,7 @@ function displayProducts(products) {
             <td>${product.attributes.prezzo}</td>
             <td>
                 <button onclick="showProduct(${product.id})">Show</button>
-                <button onclick="editProduct(${product.id})">Edit</button>
+                <button onclick="openEditModal(${product.id}, '${product.attributes.nome}', '${product.attributes.marca}', ${product.attributes.prezzo})">Edit</button>
                 <button>Delete</button>
             </td>
         `;

@@ -7,10 +7,10 @@ class Product:
     @staticmethod
     def connector():
         try:
-            #db_manager = DbManager("192.168.2.200", 3306, "fontanesi_alice", "Sevastopol.immodesty.Floyd.", "fontanesi_alice_ecommerce")
-            #conn = db_manager.connect()
-            db_manager = DbManager("localhost", 3306, "alice", "pass_db1616!", "ecommerce5E")
+            db_manager = DbManager("192.168.2.200", 3306, "fontanesi_alice", "Sevastopol.immodesty.Floyd.", "fontanesi_alice_ecommerce")
             conn = db_manager.connect()
+            #db_manager = DbManager("localhost", 3306, "alice", "pass_db1616!", "ecommerce5E")
+            #conn = db_manager.connect()
             return conn
         except mysql.connector.Error as e:
             print("Errore durante la connessione al database:", str(e))
