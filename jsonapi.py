@@ -143,8 +143,11 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_OPTIONS(self):
         self._set_response(status_code=200)
         self.send_header('Allow', 'GET, POST, DELETE, PATCH, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-type')
-        self.send_header('Access-Control-Max-Age', '86400')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH, OPTIONS')  # Specifica i metodi consentiti
+        self.send_header('Access-Control-Allow-Headers', 'Content-type')  # Specifica gli header consentiti
+        self.send_header('Access-Control-Max-Age', '86400')  # Specifica il tempo massimo di memorizzazione nella cache delle informazioni CORS
+        self.end_headers()
+
 
 def run(server_class=HTTPServer, handler_class=RequestHandler, port=8000):
     server_address = ('', port)

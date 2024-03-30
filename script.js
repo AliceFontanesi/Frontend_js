@@ -35,7 +35,7 @@ function displayProducts(products) {
             <td>
                 <button onclick="showProduct(${product.id})">Show</button>
                 <button onclick="openEditModal(${product.id}, '${product.attributes.nome}', '${product.attributes.marca}', ${product.attributes.prezzo})">Edit</button>
-                <button>Delete</button>
+                <button onclick="deleteProduct(${product.id})">Delete</button>
             </td>
         `;
 
