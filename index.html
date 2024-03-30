@@ -8,6 +8,7 @@
     <script src="show.js" defer></script>
     <script src="delete.js" defer></script>
     <script src="editModal.js" defer></script>
+    <script src="create.js" defer></script>
     <style>
         table {
             border-collapse: collapse;
@@ -60,7 +61,7 @@
 </head>
 <body>
     <h1>Prodotti Disponibili</h1>
-    <table>
+    <table id="myTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -75,7 +76,7 @@
         </tbody>
     </table>
     <br>
-    <button>Create</button>
+    <button onclick="openCreateModal()">Create</button>
 
 </body>
 </html>
