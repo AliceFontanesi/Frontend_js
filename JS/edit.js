@@ -1,4 +1,4 @@
-function openCreateModal() {
+function openEditModal(id, nome, marca, prezzo) {
     var modal = document.createElement('div');
     modal.classList.add('modal');
 
@@ -6,16 +6,17 @@ function openCreateModal() {
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Edit Product</h2>
+            <p>ID: ${id}</p>
             <label>Marca</label><br>
-            <input type="text" id="editMarca" value="">
+            <input type="text" id="editMarca" value="${marca}">
             <br><br>
             <label>Nome</label><br>
-            <input type="text" id="editNome" value="">
+            <input type="text" id="editNome" value="${nome}">
             <br><br>
             <label>Prezzo</label><br>
-            <input type="number" id="editPrezzo" value="">
+            <input type="number" id="editPrezzo" value="${prezzo}">
             <br><br>
-            <button onclick="saveChanges()">Save Changes</button>
+            <button onclick="saveEdited(${id})">Save Changes</button>
         </div>
     `;
 
@@ -30,15 +31,16 @@ function closeModal() {
     modal.remove();
 }
 
-function saveChanges() {
-
+function saveEdited(productId) {
     var editedNome = document.getElementById('editNome').value;
     var editedMarca = document.getElementById('editMarca').value;
     var editedPrezzo = document.getElementById('editPrezzo').value;
 
-    var postData = {
+    // Dati da inviare nella richiesta PATCH
+    var patchData = {
         "data": {
             "type": "products",
+            "id": productId,
             "attributes": {
                 "nome": editedNome,
                 "marca": editedMarca,
@@ -49,16 +51,17 @@ function saveChanges() {
 
     // Opzioni per la richiesta fetch
     var options = {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(postData)
+        body: JSON.stringify(patchData)
     };
 
+    // URL dell'API
+    var url = 'http://localhost:8000/products/' + productId;
 
-    var url = 'http://localhost:8000/products';
-
+    // Esegui la richiesta fetch
     fetch(url, options)
         .then(response => {
             if (!response.ok) {
@@ -67,30 +70,12 @@ function saveChanges() {
             return response.json();
         })
         .then(data => {
-            console.log('Prodotto creato con successo:', data);
-
-            var productId = data.data.id;
-            var productName = data.data.attributes.nome;
-            var productMarca = data.data.attributes.marca;
-            var productPrezzo = data.data.attributes.prezzo;
-
-            var table = document.getElementById('myTable'); 
-            var newRow = table.insertRow(-1); // Nuova riga alla fine della tabella
-
-            newRow.innerHTML = `
-            <td>${productId}</td>
-            <td>${productName}</td>
-            <td>${productMarca}</td>
-            <td>${productPrezzo}</td>
-            <td>
-                <button onclick="showProduct(${productId})">Show</button>
-                <button onclick="openEditModal(${productId}, '${productName}', '${productMarca}', ${productPrezzo})">Edit</button>
-                <button onclick="deleteProduct(${productId})">Delete</button>
-            </td>
-        `;
-
-
-            closeModal();
+            console.log('Modifiche salvate con successo:', data);
+            var tableRow = document.getElementById('productRow_' + productId);
+            tableRow.cells[1].innerText = editedMarca;
+            tableRow.cells[2].innerText = editedNome;
+            tableRow.cells[3].innerText = editedPrezzo;
+            closeModal(); 
         })
         .catch(error => {
             console.error('Errore:', error);
