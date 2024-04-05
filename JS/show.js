@@ -7,6 +7,7 @@ function showProduct(productId) {
             return response.json();
         })
         .then(data => {
+            console.log('Prodotto visualizzato con successo:', data);
             openShowModal(data.data)
         })
         .catch(error => {
