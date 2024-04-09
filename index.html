@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizzazione Prodotti</title>
+    <script src="./JS/script.js" defer></script>
+    <script src="./JS/show.js" defer></script>
+    <script src="./JS/delete.js" defer></script>
+    <script src="./JS/modal.js" defer></script>
+    <script src="./JS/saveChanges.js" defer></script>
+    <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <br>
+    <h1 style="text-align: center;">Prodotti Disponibili</h1>
+    <button onclick="openModal('create', null, [])" style="position: absolute; right: 20px; top: 80px;">Create</button>
+    <br>
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Marca</th>
+                <th>Modello</th>
+                <th>Prezzo</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody id="products-container">
+            <!-- Qui verranno inseriti dinamicamente i prodotti -->
+        </tbody>
+    </table>
+
+</body>
+</html>
