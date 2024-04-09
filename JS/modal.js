@@ -49,3 +49,14 @@ function closeModal() {
     modal.style.display = 'none';
     modal.remove();
 }
+
+
+//aggiungere modale per chiedere la conferma di eliminare un prodotto
+//fare un file unico con richieste fetch per tutti i vari metodi
+/*
+file js:
+modal.js
+script.js
+fetch.js
+altro.js (nel caso vedere come strutturare)
+*/
