@@ -5,6 +5,14 @@ function saveProduct(action, productId = null) {
 
     const url = productId ? `http://localhost:8000/products/${productId}` : 'http://localhost:8000/products';
     const method = action === 'edit' ? 'PATCH' : 'POST';
+    const body = prepareBody(action, productId, editedNome, editedMarca, editedPrezzo);
+
+    sendFetchRequest(url, method, body, action, productId, editedMarca, editedNome, editedPrezzo);
+}
+
+
+
+function prepareBody(action, productId, editedNome, editedMarca, editedPrezzo) {
     const body = {
         data: {
             type: 'products',
@@ -20,12 +28,18 @@ function saveProduct(action, productId = null) {
         body.data.id = productId;
     }
 
+    return JSON.stringify(body);
+}
+
+
+
+function sendFetchRequest(url, method, body, action, productId, editedMarca, editedNome, editedPrezzo) {
     fetch(url, {
         method: method,
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(body)
+        body: body
     })
     .then(response => {
         if (!response.ok) {
@@ -34,21 +48,26 @@ function saveProduct(action, productId = null) {
         return response.json();
     })
     .then(data => {
-        if (action === 'edit') {
-            console.log('Modifiche salvate con successo:', data);
-            updateTableRow(productId, editedMarca, editedNome, editedPrezzo);
-        } else {
-            console.log('Prodotto creato con successo:', data);
-            const newRow = createTableRow(data.data);
-            document.getElementById('myTable').appendChild(newRow);
-        }
-        closeModal();
+        handleResponse(action, productId, data, editedMarca, editedNome, editedPrezzo);
     })
     .catch(error => {
         console.error('Errore:', error);
     });
 }
 
+
+
+function handleResponse(action, productId, data, editedMarca, editedNome, editedPrezzo) {
+    if (action === 'edit') {
+        console.log('Modifiche salvate con successo:', data);
+        updateTableRow(productId, editedMarca, editedNome, editedPrezzo);
+    } else {
+        console.log('Prodotto creato con successo:', data);
+        const newRow = createTableRow(data.data);
+        document.getElementById('myTable').appendChild(newRow);
+    }
+    closeModal();
+}
 
 
 
