@@ -1,4 +1,4 @@
-function showProduct(productId) {
+function showProduct(action, productId) {
     fetch(`http://localhost:8000/products/${productId}`)
         .then(response => {
             if (!response.ok) {
@@ -7,14 +7,15 @@ function showProduct(productId) {
             return response.json();
         })
         .then(data => {
-            // Mostra i dettagli del prodotto in un modale
-            alert(`Dettagli prodotto:\nID: ${data.data.id}\nMarca: ${data.data.attributes.marca}\nNome: ${data.data.attributes.nome}\nPrezzo: ${data.data.attributes.prezzo}`);
+            console.log('Prodotto visualizzato con successo:', data);
+            if(action == "show"){
+                openModal("show", productId, data.data);
+            }else{
+                openModal("edit", productId, data.data);
+            }
+            
         })
         .catch(error => {
             console.error('Errore:', error);
         });
 }
-
-
-
-

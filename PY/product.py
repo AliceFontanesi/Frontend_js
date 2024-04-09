@@ -1,6 +1,5 @@
 from dbmanager import DbManager
 import mysql.connector
-import json
 
 class Product:
 

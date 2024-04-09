@@ -7,6 +7,7 @@ function deleteProduct(productId) {
             throw new Error('Errore nella richiesta: ' + response.status);
         }
         console.log('Prodotto eliminato con successo');
+        closeModal()
         removeTableRow(productId); 
     })
     .catch(error => {
@@ -23,3 +24,4 @@ function removeTableRow(productId) {
         console.error('Riga non trovata per il prodotto con ID:', productId);
     }
 }
+

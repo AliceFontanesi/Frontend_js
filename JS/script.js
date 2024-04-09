@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 
+
+
 function displayProducts(products) {
     const productsContainer = document.getElementById('products-container'); 
     
@@ -33,12 +35,16 @@ function displayProducts(products) {
             <td>${product.attributes.nome}</td>
             <td>${product.attributes.prezzo}</td>
             <td>
-                <button onclick="showProduct(${product.id})">Show</button>
-                <button onclick="openEditModal(${product.id}, '${product.attributes.nome}', '${product.attributes.marca}', ${product.attributes.prezzo})">Edit</button>
-                <button onclick="deleteProduct(${product.id})">Delete</button>
+                <button onclick="showProduct('show', ${product.id})">Show</button>
+                <button onclick="showProduct('edit', ${product.id})">Edit</button>
+                <button onclick="openModal('delete', ${product.id}, [])">Delete</button>
             </td>
         `;
 
         productsContainer.appendChild(productRow);
     });
 }
+
+
+
+
