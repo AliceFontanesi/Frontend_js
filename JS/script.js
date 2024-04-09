@@ -37,7 +37,11 @@ function displayProducts(products) {
             <td>
                 <button onclick="showProduct('show', ${product.id})">Show</button>
                 <button onclick="showProduct('edit', ${product.id})">Edit</button>
+<<<<<<< HEAD
                 <button onclick="openModal('delete', ${product.id}, [])">Delete</button>
+=======
+                <button onclick="deleteProduct(${product.id})">Delete</button>
+>>>>>>> 3beb4734fbff6d913fe9aa7d5b2a5ccafea30b77
             </td>
         `;
 
