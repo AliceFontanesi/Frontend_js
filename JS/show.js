@@ -13,7 +13,6 @@ function showProduct(action, productId) {
             }else{
                 openModal("edit", productId, data.data);
             }
-            
         })
         .catch(error => {
             console.error('Errore:', error);
