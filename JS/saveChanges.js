@@ -31,6 +31,8 @@ function prepareBody(action, productId, editedNome, editedMarca, editedPrezzo) {
     return JSON.stringify(body);
 }
 
+
+
 function sendFetchRequest(url, method, body, action, productId) {
     const requestOptions = {
         method: method
@@ -106,12 +108,13 @@ function createTableRow(product) {
         <td>${product.attributes.prezzo}</td>
         <td>
             <button onclick="showProduct('show', ${product.id})">Show</button>
-            <button onclick="openEditModal(${product.id}, '${product.attributes.nome}', '${product.attributes.marca}', ${product.attributes.prezzo})">Edit</button>
-            <button onclick="handleAction('delete', ${product.id})">Delete</button>
+            <button onclick="showProduct('edit', ${product.id})">Edit</button>
+            <button onclick="openModal('delete', ${product.id}, [])">Delete</button>
         </td>
     `;
     return newRow;
 }
+
 
 
 function removeTableRow(productId) {
