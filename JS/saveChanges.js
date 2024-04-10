@@ -23,7 +23,10 @@ function prepareBody(action, productId, editedNome, editedMarca, editedPrezzo) {
             }
         }
     };
-    if (action === 'edit') body.data.id = productId;
+    
+    if (action === 'edit') 
+        body.data.id = productId;
+
     return JSON.stringify(body);
 }
 
