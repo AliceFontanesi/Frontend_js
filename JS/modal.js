@@ -27,8 +27,8 @@ function getModalFields(action, data, id) {
             <label>Prezzo: ${data.attributes.prezzo}</label><br>`;
     } else if (action === 'delete') {
         return `
-            <p>Sei sicuro di voler eliminare questo prodotto? ${id}</p>
-            <button onclick="deleteProduct(${id})">Yes</button>
+            <p>Sei sicuro di voler eliminare questo prodotto?</p>
+            <button onclick="sendFetchRequest('http://localhost:8000/products/${id}', 'DELETE', null, null, ${id})">Yes</button>
             <button onclick="closeModal()">No</button>`;
     } else {
         const marcaValue = data.length === 0 ? '' : data.attributes.marca || '';

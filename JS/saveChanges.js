@@ -31,24 +31,36 @@ function prepareBody(action, productId, editedNome, editedMarca, editedPrezzo) {
     return JSON.stringify(body);
 }
 
-
-
 function sendFetchRequest(url, method, body, action, productId) {
-    fetch(url, {
-        method: method,
-        headers: {
+    const requestOptions = {
+        method: method
+    };
+
+    if (method === 'PATCH' || method === 'POST') {
+        requestOptions.headers = {
             'Content-Type': 'application/json'
-        },
-        body: body
-    })
+        };
+        requestOptions.body = body;
+    }
+
+    fetch(url, requestOptions)
+
     .then(response => {
         if (!response.ok) {
             throw new Error('Errore nella richiesta: ' + response.status);
         }
+        if (method === 'DELETE') {
+            console.log('Prodotto eliminato con successo');
+            closeModal();
+            removeTableRow(productId); 
+            return;
+        }
         return response.json();
     })
     .then(data => {
-        handleResponse(action, productId, data);
+        if (method !== 'DELETE') {
+            handleResponse(action, productId, data);
+        }
     })
     .catch(error => {
         console.error('Errore:', error);
@@ -102,6 +114,13 @@ function createTableRow(product) {
 }
 
 
-
+function removeTableRow(productId) {
+    const row = document.getElementById('productRow_' + productId);
+    if (row) {
+        row.remove(); 
+    } else {
+        console.error('Riga non trovata per il prodotto con ID:', productId);
+    }
+}
 
 
