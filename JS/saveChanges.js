@@ -7,7 +7,7 @@ function saveProduct(action, productId = null) {
     const method = action === 'edit' ? 'PATCH' : 'POST';
     const body = prepareBody(action, productId, editedNome, editedMarca, editedPrezzo);
 
-    sendFetchRequest(url, method, body, action, productId, editedMarca, editedNome, editedPrezzo);
+    sendFetchRequest(url, method, body, action, productId);
 }
 
 
@@ -33,7 +33,7 @@ function prepareBody(action, productId, editedNome, editedMarca, editedPrezzo) {
 
 
 
-function sendFetchRequest(url, method, body, action, productId, editedMarca, editedNome, editedPrezzo) {
+function sendFetchRequest(url, method, body, action, productId) {
     fetch(url, {
         method: method,
         headers: {
@@ -48,7 +48,7 @@ function sendFetchRequest(url, method, body, action, productId, editedMarca, edi
         return response.json();
     })
     .then(data => {
-        handleResponse(action, productId, data, editedMarca, editedNome, editedPrezzo);
+        handleResponse(action, productId, data);
     })
     .catch(error => {
         console.error('Errore:', error);
@@ -57,10 +57,10 @@ function sendFetchRequest(url, method, body, action, productId, editedMarca, edi
 
 
 
-function handleResponse(action, productId, data, editedMarca, editedNome, editedPrezzo) {
+function handleResponse(action, productId, data) {
     if (action === 'edit') {
         console.log('Modifiche salvate con successo:', data);
-        updateTableRow(productId, editedMarca, editedNome, editedPrezzo);
+        updateTableRow(productId, data.data);
     } else {
         console.log('Prodotto creato con successo:', data);
         const newRow = createTableRow(data.data);
@@ -71,12 +71,12 @@ function handleResponse(action, productId, data, editedMarca, editedNome, edited
 
 
 
-function updateTableRow(productId, editedMarca, editedNome, editedPrezzo) {
+function updateTableRow(productId, product) {
     const tableRow = document.getElementById('productRow_' + productId);
     if (tableRow) {
-        tableRow.cells[1].innerText = editedMarca;
-        tableRow.cells[2].innerText = editedNome;
-        tableRow.cells[3].innerText = editedPrezzo;
+        tableRow.cells[1].innerText = product.attributes.marca;
+        tableRow.cells[2].innerText = product.attributes.nome;
+        tableRow.cells[3].innerText = product.attributes.prezzo;
     } else {
         console.error('Riga non trovata per il prodotto con ID:', productId);
     }
