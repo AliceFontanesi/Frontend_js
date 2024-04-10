@@ -55,7 +55,7 @@ function sendFetchRequest(url, method, body, action, productId) {
     })
     .then(data => {
         if (method !== 'DELETE') 
-            handleResponse(action, productId, data);
+            handleResponse(action, productId = null, data);
     })
     .catch(error => {
         console.error('Errore:', error);

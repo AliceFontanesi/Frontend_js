@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
-
     fetch('http://localhost:8000/products')
         .then(response => {
             if (!response.ok) {
