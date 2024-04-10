@@ -23,30 +23,21 @@ function prepareBody(action, productId, editedNome, editedMarca, editedPrezzo) {
             }
         }
     };
-
-    if (action === 'edit') {
-        body.data.id = productId;
-    }
-
+    if (action === 'edit') body.data.id = productId;
     return JSON.stringify(body);
 }
 
 
 
 function sendFetchRequest(url, method, body, action, productId) {
-    const requestOptions = {
-        method: method
-    };
+    const requestOptions = {method: method};
 
     if (method === 'PATCH' || method === 'POST') {
-        requestOptions.headers = {
-            'Content-Type': 'application/json'
-        };
+        requestOptions.headers = {'Content-Type': 'application/json'};
         requestOptions.body = body;
     }
 
     fetch(url, requestOptions)
-
     .then(response => {
         if (!response.ok) {
             throw new Error('Errore nella richiesta: ' + response.status);
@@ -60,9 +51,8 @@ function sendFetchRequest(url, method, body, action, productId) {
         return response.json();
     })
     .then(data => {
-        if (method !== 'DELETE') {
+        if (method !== 'DELETE') 
             handleResponse(action, productId, data);
-        }
     })
     .catch(error => {
         console.error('Errore:', error);
@@ -91,9 +81,8 @@ function updateTableRow(productId, product) {
         tableRow.cells[1].innerText = product.attributes.marca;
         tableRow.cells[2].innerText = product.attributes.nome;
         tableRow.cells[3].innerText = product.attributes.prezzo;
-    } else {
+    } else 
         console.error('Riga non trovata per il prodotto con ID:', productId);
-    }
 }
 
 
@@ -119,11 +108,10 @@ function createTableRow(product) {
 
 function removeTableRow(productId) {
     const row = document.getElementById('productRow_' + productId);
-    if (row) {
+    if (row) 
         row.remove(); 
-    } else {
+    else 
         console.error('Riga non trovata per il prodotto con ID:', productId);
-    }
 }
 
 
