@@ -1,18 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://localhost:8000/products')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Errore nella richiesta: ' + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Risposta ricevuta:', data); 
-            displayProducts(data.data); 
-        })
-        .catch(error => {
-            console.error('Errore:', error);
-        });
+    sendFetchRequest('http://localhost:8000/products', 'GET', null, null, null)
 });
 
 

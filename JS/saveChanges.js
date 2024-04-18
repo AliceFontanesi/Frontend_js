@@ -33,33 +33,35 @@ function prepareBody(action, productId, editedNome, editedMarca, editedPrezzo) {
 
 
 function sendFetchRequest(url, method, body, action, productId) {
-    const requestOptions = {method: method};
+    const requestOptions = { method: method };
 
     if (method === 'PATCH' || method === 'POST') {
-        requestOptions.headers = {'Content-Type': 'application/json'};
+        requestOptions.headers = { 'Content-Type': 'application/json' };
         requestOptions.body = body;
     }
 
     fetch(url, requestOptions)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Errore nella richiesta: ' + response.status);
-        }
-        if (method === 'DELETE') {
-            console.log('Prodotto eliminato con successo');
-            closeModal();
-            removeTableRow(productId); 
-            return;
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (method !== 'DELETE') 
-            handleResponse(action, productId = null, data);
-    })
-    .catch(error => {
-        console.error('Errore:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Errore nella richiesta: ' + response.status);
+            }
+            if (method === 'DELETE') {
+                console.log('Prodotto eliminato con successo');
+                closeModal();
+                removeTableRow(productId);
+                return;
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (method !== 'DELETE' && method !== 'GET')
+                handleResponse(action, productId, data);
+            if (method === 'GET')
+                displayProducts(data.data); 
+        })
+        .catch(error => {
+            console.error('Errore:', error);
+        });
 }
 
 
